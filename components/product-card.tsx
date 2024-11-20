@@ -4,7 +4,10 @@ import { Animated, Image, StyleSheet, Text, View } from "react-native";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <View key={product.id} style={styles.card}>
+    <View
+      key={product.id}
+      className="bg-white p-4 rounded-lg justify-center items-center gap-2 mb-2"
+    >
       <Image source={{ uri: product.image }} style={styles.image} />
       <Text style={styles.title}>{product.title}</Text>
     </View>
