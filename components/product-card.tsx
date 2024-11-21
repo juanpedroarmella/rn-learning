@@ -1,15 +1,23 @@
 import { Product } from "lib/products";
 import React, { useEffect, useRef } from "react";
 import { Animated, Image, StyleSheet, Text, View } from "react-native";
+import { Score } from "./score";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
     <View
       key={product.id}
-      className="bg-white p-4 rounded-lg justify-center items-center gap-2 mb-3"
+      className="bg-white p-6 rounded-lg justify-center items-center gap-2 mb-5 flex"
     >
       <Image source={{ uri: product.image }} style={styles.image} />
-      <Text style={styles.title}>{product.title}</Text>
+      <Text className="text-base font-semibold mt-4">{product.title}</Text>
+      <Text className="text-sm text-gray-500 first-letter:capitalize">
+        {product.description}
+      </Text>
+      <View className="flex-row justify-between items-center w-full mt-5">
+        <Score score={product.rating.rate} maxScore={5} />
+        <Text className="text-xl font-semibold">${product.price}</Text>
+      </View>
     </View>
   );
 }
@@ -40,21 +48,8 @@ export function AnimatedProductCard({
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-    gap: 10,
-  },
   image: {
-    width: 100,
-    height: 100,
-  },
-  title: {
-    fontWeight: "semibold",
-    textAlign: "center",
+    width: 200,
+    height: 200,
   },
 });

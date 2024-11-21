@@ -1,6 +1,14 @@
+import { CircleInfoIcon } from "app/icons";
+import { Link } from "expo-router";
 import { getProducts, Product } from "lib/products";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Logo } from "./logo";
 import { AnimatedProductCard } from "./product-card";
@@ -25,6 +33,13 @@ export function Main() {
       <View style={styles.logo}>
         <Logo style={{ width: 100, height: 100 }} />
       </View>
+      <Link href="/about">
+        <Pressable>
+          {({ pressed }) => (
+            <CircleInfoIcon size={24} color={pressed ? "red" : "white"} />
+          )}
+        </Pressable>
+      </Link>
       {products.length === 0 ? (
         <View style={styles.loading}>
           <ActivityIndicator color="#fff" />

@@ -10,7 +10,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
-        <StatusBar style="auto" />
+        <StatusBar style="dark" />
         <Main />
       </View>
     </SafeAreaProvider>
