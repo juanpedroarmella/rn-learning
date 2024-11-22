@@ -1,24 +1,41 @@
 import { Product } from "lib/products";
 import React, { useEffect, useRef } from "react";
-import { Animated, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Animated,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { Score } from "./score";
+import { Link } from "expo-router";
+import { cssInterop } from "nativewind";
+
+const StyledPressable = cssInterop(Pressable, {
+  className: "style",
+});
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <View
-      key={product.id}
-      className="bg-white p-6 rounded-lg justify-center items-center gap-2 mb-5 flex"
-    >
-      <Image source={{ uri: product.image }} style={styles.image} />
-      <Text className="text-base font-semibold mt-4">{product.title}</Text>
-      <Text className="text-sm text-gray-500 first-letter:capitalize">
-        {product.description}
-      </Text>
-      <View className="flex-row justify-between items-center w-full mt-5">
-        <Score score={product.rating.rate} maxScore={5} />
-        <Text className="text-xl font-semibold">${product.price}</Text>
-      </View>
-    </View>
+    <Link href={`/${product.id}`}>
+      <StyledPressable className="active:bg-gray-500 border rounded-lg border-black active:border-red-200 mb-5">
+        <View
+          key={product.id}
+          className="bg-white p-6 justify-center rounded-lg items-center gap-2 flex"
+        >
+          <Image source={{ uri: product.image }} style={styles.image} />
+          <Text className="text-base font-semibold mt-4">{product.title}</Text>
+          <Text className="text-sm text-gray-500 first-letter:capitalize">
+            {product.description}
+          </Text>
+          <View className="flex-row justify-between items-center w-full mt-5">
+            <Score score={product.rating.rate} maxScore={5} />
+            <Text className="text-xl font-semibold">${product.price}</Text>
+          </View>
+        </View>
+      </StyledPressable>
+    </Link>
   );
 }
 

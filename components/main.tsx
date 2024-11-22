@@ -1,18 +1,9 @@
-import { CircleInfoIcon } from "app/icons";
-import { Link } from "expo-router";
 import { getProducts, Product } from "lib/products";
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  View,
-} from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Logo } from "./logo";
+import { FlatList, StyleSheet } from "react-native";
+import Loading from "./loading";
 import { AnimatedProductCard } from "./product-card";
-
+import Screen from "./screen";
 export function Main() {
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -20,30 +11,10 @@ export function Main() {
     getProducts().then((games) => setProducts(games));
   }, []);
 
-  const insets = useSafeAreaInsets();
-
   return (
-    <View
-      style={{
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-        ...styles.view,
-      }}
-    >
-      <View style={styles.logo}>
-        <Logo style={{ width: 100, height: 100 }} />
-      </View>
-      <Link href="/about">
-        <Pressable>
-          {({ pressed }) => (
-            <CircleInfoIcon size={24} color={pressed ? "red" : "white"} />
-          )}
-        </Pressable>
-      </Link>
+    <Screen className="flex-1">
       {products.length === 0 ? (
-        <View style={styles.loading}>
-          <ActivityIndicator color="#fff" />
-        </View>
+        <Loading />
       ) : (
         <FlatList
           style={styles.list}
@@ -53,30 +24,13 @@ export function Main() {
           )}
         />
       )}
-    </View>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    gap: 20,
-    backgroundColor: "#000",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    marginTop: 20,
-    width: 100,
-    height: 100,
-  },
   list: {
     width: "100%",
     padding: 20,
-  },
-  loading: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

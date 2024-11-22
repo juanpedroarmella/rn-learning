@@ -9,3 +9,7 @@ export const CircleInfoIcon = (props: ComponentProps<typeof FontAwesome6>) => (
 export const HomeIcon = (
   props: Omit<ComponentProps<typeof FontAwesome>, "name">,
 ) => <FontAwesome {...props} name="home" />;
+
+export const InfoIcon = (
+  props: Omit<ComponentProps<typeof FontAwesome6>, "name">,
+) => <FontAwesome6 {...props} name="info" />;
